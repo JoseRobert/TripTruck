@@ -7,6 +7,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const bodyparser = require("body-parser");
 const logger = require('morgan');
 const cors = require('cors')
 
@@ -16,10 +17,12 @@ const routes = require('./routes/Routes');
 
 const app = express();
 
-mongoose.connect(config.DB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(config.DB_URL, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+mongoose.connect(config.DB_URL);
+
 
 app.use(cors());  //enable cors
 
@@ -36,16 +39,16 @@ app.use((req, res, next) => {
   next(createError(404));
 });
 
-// error handler
-app.use((err, req, res) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// // error handler
+// app.use((err, req, res) => {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 3000);
-  res.render('error');
-});
+//   // render the error page
+//   res.status(err.status || 3000);
+//   res.render('error');
+// });
 
 app.listen(config.DB_PORT, function(){
    console.log(`Server running at port: 3000`); 
