@@ -1,9 +1,9 @@
 //config/config.js
 
 module.exports = {
-    DB_URL: process.env.MONGO_URL ? process.env.MONGO_URL : 'mongodb://localhost:27017/todos',
     DB_URL: process.env.MONGO_URL ? process.env.MONGO_URL : "mongodb+srv://root:toor@cluster0-juyt5.mongodb.net/test?retryWrites=true&w=majority",
-    DB_PORT: process.env.APP_PORT ? process.env.APP_PORT : 80,
+    DB_URL: process.env.MONGO_URL ? process.env.MONGO_URL : 'mongodb://localhost:27017/TripTruck',
+    DB_PORT: process.env.APP_PORT ? process.env.APP_PORT : 3000,
 };
 
 // const MongoClient = require('mongodb').MongoClient;

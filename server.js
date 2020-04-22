@@ -1,56 +1,42 @@
 // server.js
 
-console.log('server.js')
-
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
 const bodyparser = require("body-parser");
 const logger = require('morgan');
 const cors = require('cors')
 
-const config = require('./config/Config');
+// Models
+const User = require('./models/userModel').Users;
 
-const routes = require('./routes/Routes');
+// const cookieParser = require('cookie-parser');
+const config = require('./config/Config');  // DB Config
+
+const router = require('./router/router');
 
 const app = express();
+// Router
+app.use('/', router);
 
-// mongoose.connect(config.DB_URL, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-mongoose.connect(config.DB_URL);
+mongoose.connect(config.DB_URL, { useNewUrlParser: true,  useUnifiedTopology: true } );
+var db = mongoose.connection; 
+db.on('error', console.error.bind(console, 'connection error:') );
+db.once('open', function(){
+    console.log('DB conectado.')
+});
 
-
+// Static files
+app.use("/public", express.static('public'));
 app.use(cors());  //enable cors
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json());
+// app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/todos', routes);
-
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-  next(createError(404));
-});
-
-// // error handler
-// app.use((err, req, res) => {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 3000);
-//   res.render('error');
-// });
-
 app.listen(config.DB_PORT, function(){
-   console.log(`Server running at port: 3000`); 
+   console.log(`Server running at port: ${ config.DB_PORT }`); 
 }); // Listen on port defined in environment
 
