@@ -10,7 +10,7 @@ const cors = require('cors');
 const config = require('./config/Config');  // DB Config
 
 const usersRouter = require('./router/usersRouter');
-const userAll = require('./router/userAll');
+// const userAll = require('./router/userAll');
 
 // const customersRouter = require('./router/customersRouter');
 
@@ -18,11 +18,15 @@ const app = express();
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cors());
 app.use(bodyparser.urlencoded({ extended: true }));    // 
 app.use(bodyparser.json());     // application/json
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+app.use(function(req, res, next){
+    console.log('Middlware...');
+    next();
+})
 // app.get('/', function(req, res){
 //     // res.send('Ruta...');
 //     // res.render('./public/home');
@@ -30,7 +34,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // })
 // Router
 app.use('/users', usersRouter);
-app.use('/userAll', userAll);
+// app.use('/userAll', usersRouter);   // userAll
+
 // app.use('/customers', customersRouter);
 
 mongoose.set('useNewUrlParser', true);
