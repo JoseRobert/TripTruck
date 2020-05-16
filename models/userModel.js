@@ -27,6 +27,6 @@ let user_schema = new Schema({
  user_schema.methods.verifica = function(){
  
  }
- let User = mongoose.model("User", user_schema);    // Asocia coleccion "Users" a un schema "Estructura"
+ let User = mongoose.model("User", user_schema, );    // Asocia coleccion "Users" a un schema "Estructura"
 
  module.exports.User = User;

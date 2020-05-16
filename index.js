@@ -10,7 +10,8 @@ const cors = require('cors');
 const config = require('./config/Config');  // DB Config
 
 const usersRouter = require('./router/usersRouter');
-// const userAll = require('./router/userAll');
+const trucksRouter = require('./router/trucksRouter');
+const trailersRouter = require('./router/trailersRouter');
 
 // const customersRouter = require('./router/customersRouter');
 
@@ -24,7 +25,7 @@ app.use(bodyparser.json());     // application/json
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next){
-    console.log('Middlware...');
+    // console.log('Middlware...');
     next();
 })
 // app.get('/', function(req, res){
@@ -52,9 +53,3 @@ db.once('open', function(){
         console.log(`Server running at port: ${ config.DB_PORT }`); 
     }); // Listen on port defined in environment
 });
-
-
-
- 
-
-
