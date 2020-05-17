@@ -144,7 +144,7 @@ router.put('/update', (req, res) => {
 // Delete one document
 // router.delete('/:id', (req, res) => {
 router.delete('/delete', async (req, res) => {
-    // console.log('/users/delete');
+    console.log('/users/delete');
     let id = req.body._id;
     let currentUser =  currentUser;
     // console.log('body._id =>', id);
