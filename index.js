@@ -53,3 +53,15 @@ db.once('open', function(){
         console.log(`Server running at port: ${ config.DB_PORT }`); 
     }); // Listen on port defined in environment
 });
+// 
+// const mysql = require('mysql');
+// const connection = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'user',
+//   password: 'password',
+//   database: 'database name'
+// });
+// connection.connect((err) => {
+//   if (err) throw err;
+//   console.log('Connected!');
+// });
